@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive OpenAPI reference for Chuck Norris Jokes, rendered with Scalar." />
+  <title>Chuck Norris API | Scalar Documentation Project</title>
+  <style>
+    :root { color-scheme: light; --ink: #172339; --muted: #54617a; --navy: #10263a; --teal: #0e9b87; --paper: #f3f7f9; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: #fff; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .topbar { min-height: 67px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 14px clamp(18px, 5vw, 82px); background: #0d1e30; color: white; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 760; font-size: 15px; letter-spacing: -.02em; }
+    .brand-icon { display: grid; place-items: center; width: 32px; height: 32px; background: #16ad97; color: #082822; border-radius: 10px; font-size: 19px; }
+    .brand small { margin-left: 8px; padding-left: 16px; border-left: 1px solid #456; color: #bdd0df; font-weight: 500; font-size: 12px; letter-spacing: 0; }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+    .navlinks a { color: #d6e5ed; text-decoration: none; font-size: 12px; font-weight: 650; }
+    .navlinks a:hover { color: #fff; text-decoration: underline; }
+    .hero { background: linear-gradient(125deg, #10263a 0%, #0b353e 57%, #076d64 100%); color: white; padding: clamp(35px, 6vw, 72px) clamp(18px, 5vw, 82px) clamp(30px, 5vw, 60px); }
+    .hero-inner { max-width: 1100px; margin: auto; }
+    .eyebrow { display: inline-flex; padding: 7px 11px; border: 1px solid #4ba59b; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .09em; color: #a5f8e8; }
+    h1 { max-width: 850px; font-size: clamp(30px, 5.7vw, 58px); letter-spacing: -.055em; line-height: 1.06; margin: 22px 0 16px; font-weight: 790; }
+    .hero p { max-width: 650px; font-size: clamp(14px, 1.8vw, 17px); line-height: 1.68; color: #cbdde5; margin: 0 0 28px; }
+    .chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 28px; }
+    .chip { font-size: 11px; font-weight: 650; color: #dcfcf6; background: #ffffff13; border: 1px solid #ffffff2a; padding: 7px 11px; border-radius: 7px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-block; text-decoration: none; padding: 12px 17px; border-radius: 9px; font-weight: 750; font-size: 13px; transition: transform .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: #20c9af; color: #072c29; }
+    .btn-outline { color: #fff; border: 1px solid #88c9c2; }
+    .steps { background: var(--paper); padding: 30px clamp(18px, 5vw, 82px) 36px; }
+    .steps-inner { max-width: 1100px; margin: auto; }
+    h2.steps-head { letter-spacing: -.03em; font-size: 24px; margin: 0 0 6px; }
+    .steps-intro { color: var(--muted); line-height: 1.5; font-size: 13px; margin: 0 0 23px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 13px; }
+    .step { padding: 18px 17px; border-radius: 11px; border: 1px solid #dbe4e9; background: #fff; min-height: 150px; }
+    .num { display: grid; place-items: center; background: #d7f6ee; color: #076f62; width: 28px; height: 28px; border-radius: 8px; font-size: 12px; font-weight: 800; margin-bottom: 13px; }
+    .step b { display: block; font-size: 13px; margin-bottom: 6px; }
+    .step span { display: block; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .step code { font-size: 11px; }
+    .reference-heading { padding: 24px clamp(18px,5vw,82px) 10px; border-bottom: 1px solid #e6ecf0; display: flex; flex-wrap:wrap; align-items: center; justify-content:space-between; gap: 10px; }
+    .reference-heading h2 { margin: 0; font-size: 19px; }
+    .reference-heading p { margin: 5px 0 0; font-size: 12px; color: var(--muted); }
+    .reference-heading a { font-size: 12px; color: #067868; font-weight: 650; }
+    .api-reference { min-height: 800px; }
+    .footnote { background: #0d1e30; color: #aec1cd; font-size: 12px; line-height: 1.7; padding: 20px clamp(18px,5vw,82px); }
+    .footnote a { color: #8be5d8; }
+    @media (max-width: 800px) { .steps-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+    @media (max-width: 470px) { .steps-grid { grid-template-columns: 1fr; } .brand small { display: none; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">{ }</span> API LAB <small>PROJECT 11 · SCALAR</small></div>
+    <nav class="navlinks" aria-label="Project navigation">
+      <a href="#how-to-demo">How to demo</a>
+      <a href="#api-docs">API reference</a>
+      <a href="openapi.yaml" target="_blank" rel="noreferrer">OpenAPI YAML ↗</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <span class="eyebrow">INTERACTIVE API DOCUMENTATION</span>
+        <h1 id="hero-title">Explore a real REST API.<br />Documented with Scalar.</h1>
+        <p>An OpenAPI 3.1 specification transformed into searchable, interactive documentation. Discover the endpoints, test live GET requests, and inspect JSON responses using Scalar's built-in API client.</p>
+        <div class="chips"><span class="chip">OpenAPI 3.1</span><span class="chip">Scalar API Reference</span><span class="chip">3 endpoints</span><span class="chip">No API key</span></div>
+        <div class="actions"><a class="btn btn-primary" href="#api-docs">Explore API reference ↓</a><a class="btn btn-outline" href="#how-to-demo">View demo steps</a></div>
+      </div>
+    </section>
+    <section class="steps" id="how-to-demo" aria-labelledby="steps-title">
+      <div class="steps-inner">
+        <h2 class="steps-head" id="steps-title">How to demonstrate Scalar's API client</h2>
+        <p class="steps-intro">These are live HTTP requests to a public API, not simulated responses. Follow the sequence during your presentation.</p>
+        <div class="steps-grid">
+          <div class="step"><div class="num">01</div><b>Select an endpoint</b><span>Scroll to the API reference, then select <code>GET /jokes/categories</code>.</span></div>
+          <div class="step"><div class="num">02</div><b>Open Test Request</b><span>Click Scalar's <b>Test Request</b> action to open the interactive API client.</span></div>
+          <div class="step"><div class="num">03</div><b>Send the request</b><span>Keep the public server selected and click <b>Send Request</b>. No authentication is required.</span></div>
+          <div class="step"><div class="num">04</div><b>Inspect the response</b><span>Explain the HTTP status, headers and JSON array. Repeat with a <code>dev</code> category or search keyword.</span></div>
+        </div>
+      </div>
+    </section>
+    <section id="api-docs" aria-label="Scalar API documentation">
+      <div class="reference-heading"><div><h2>Live API reference</h2><p>Rendered from <code>openapi.json</code> · Scalar CDN integration</p></div><a href="openapi.json" target="_blank" rel="noreferrer">See source specification ↗</a></div>
+      <div id="app" class="api-reference" aria-label="Scalar interactive API reference">
+        <p style="padding: 20px; color: #54617a;">Loading Scalar documentation… Internet access is required for the CDN script.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="footnote">Educational API reference project. API provided by <a href="https://api.chucknorris.io/" target="_blank" rel="noreferrer">chucknorris.io</a>. This website does not host the third-party API. Requests use the public server; Scalar's optional hosted proxy may be used to handle browser CORS limitations.</footer>
+  <script type="module">
+    // Official Scalar HTML/JS integration, using the public CDN (no build step).
+    import { createApiReference } from 'https://cdn.jsdelivr.net/npm/@scalar/api-reference/esm.js'
+
+    createApiReference('#app', {
+      url: './openapi.json',
+      theme: 'default',
+      showSidebar: true,
+      hideClientButton: false,
+      // Cross-origin requests may need the Scalar proxy because browser CORS applies.
+      // Never send confidential tokens through a third-party proxy.
+      proxyUrl: 'https://proxy.scalar.com',
+    })
+  </script>
+</body>
+</html>

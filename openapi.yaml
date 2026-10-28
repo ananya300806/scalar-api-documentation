@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: Chuck Norris Jokes API
+  version: 1.0.0
+  summary: A practical OpenAPI and Scalar documentation demo
+  description: |-
+    An educational OpenAPI reference for the public Chuck Norris Jokes API.
+
+    **Try the built-in Scalar API client:** Open an endpoint, click **Test Request**,
+    check the server and parameters, then select **Send Request** to view the
+    HTTP status, response headers and JSON body.
+
+    No API key is required. This project documents a third-party API; it does
+    not host or implement the underlying joke service.
+  contact:
+    name: Chuck Norris API (upstream)
+    url: https://api.chucknorris.io/
+  license:
+    name: Documentation example (educational)
+servers:
+  - url: https://api.chucknorris.io
+    description: Public production API
+externalDocs:
+  description: Official upstream API documentation
+  url: https://api.chucknorris.io/
+tags:
+  - name: Jokes
+    description: Fetch or search for jokes
+  - name: Categories
+    description: Discover the category names that can be used for filtering
+paths:
+  /jokes/random:
+    get:
+      tags: [Jokes]
+      operationId: getRandomJoke
+      summary: Get a random joke
+      description: |-
+        Returns one random Chuck Norris joke. Optionally filter the result using
+        the `category` query parameter. For a classroom demonstration, use
+        `dev` as the category.
+      parameters:
+        - name: category
+          in: query
+          description: Optional category; first use `/jokes/categories` to see possible values.
+          required: false
+          schema:
+            type: string
+          example: dev
+      responses:
+        '200':
+          description: Random joke returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Joke'
+  /jokes/categories:
+    get:
+      tags: [Categories]
+      operationId: listJokeCategories
+      summary: List all joke categories
+      description: Returns an array of category strings that can be used with the random joke endpoint.
+      responses:
+        '200':
+          description: Available categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - animal
+                - career
+                - celebrity
+                - dev
+                - explicit
+                - fashion
+                - food
+                - history
+                - money
+                - movie
+                - music
+                - political
+                - religion
+                - science
+                - sport
+                - travel
+  /jokes/search:
+    get:
+      tags: [Jokes]
+      operationId: searchJokes
+      summary: Search jokes using text
+      description: Returns the number of matches and an array of matching jokes.
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Keyword or phrase to search for in the jokes database.
+          schema:
+            type: string
+            minLength: 1
+          example: computer
+      responses:
+        '200':
+          description: Search completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JokeSearchResponse'
+components:
+  schemas:
+    Joke:
+      type: object
+      description: One joke and its associated metadata.
+      required: [id, value, icon_url, url]
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+          description: Category names associated with the joke.
+        created_at:
+          type: string
+          description: Upstream creation timestamp, supplied as a string.
+        icon_url:
+          type: string
+          format: uri
+          description: URL of the upstream API's avatar icon.
+        id:
+          type: string
+          description: Unique identifier of the joke.
+        updated_at:
+          type: string
+          description: Upstream modification timestamp, supplied as a string.
+        url:
+          type: string
+          description: Public joke URL (may be an empty string).
+        value:
+          type: string
+          description: Joke text.
+    JokeSearchResponse:
+      type: object
+      required: [total, result]
+      properties:
+        total:
+          type: integer
+          minimum: 0
+          description: Number of matching jokes.
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Joke'
+          description: Matching jokes.
